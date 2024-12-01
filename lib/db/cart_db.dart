@@ -1,0 +1,55 @@
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:machine_task_atts/models/cart_models.dart';
+
+const _dbName = 'cartBox';
+
+abstract class CartDbFunctions {
+  Future<List<CartModels>> getCart();
+  Future<void> addCart(CartModels models);
+  Future<void> removeCart(String cartId);
+  Future<void> editCart(CartModels value, String cartId);
+}
+
+class CartDb implements CartDbFunctions {
+  ValueNotifier<List<CartModels>> driverNotifier = ValueNotifier([]);
+
+  CartDb._internal();
+  static final CartDb singleton = CartDb._internal();
+
+  factory CartDb() {
+    return singleton;
+  }
+
+  Future<void> refresh() async {
+    final allCart = await getCart();
+    driverNotifier.value = List.from(allCart);
+  }
+
+  @override
+  Future<void> addCart(CartModels models) async {
+    final db = await Hive.openBox<CartModels>(_dbName);
+    await db.put(models.id, models);
+    refresh();
+  }
+
+  @override
+  Future<void> editCart(CartModels value, String cartId) async {
+    final db = await Hive.openBox<CartModels>(_dbName);
+    await db.put(cartId, value);
+    refresh();
+  }
+
+  @override
+  Future<List<CartModels>> getCart() async {
+    final db = await Hive.openBox<CartModels>(_dbName);
+    return db.values.toList();
+    
+  }
+
+  @override
+  Future<void> removeCart(String cartId) async {
+    final db = await Hive.openBox<CartModels>(_dbName);
+    await db.delete(cartId);
+  }
+}

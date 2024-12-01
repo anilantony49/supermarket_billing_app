@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:machine_task_atts/Utils/colors.dart';
+import 'package:machine_task_atts/db/cart_db.dart';
+import 'package:machine_task_atts/models/cart_models.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+class ProductCard extends StatefulWidget {
+  final Map<String, String> product;
+  final Function(String) onRemove;
+  const ProductCard({super.key, required this.product, required this.onRemove});
+
+  @override
+  State<ProductCard> createState() => _ProductCardState();
+}
+
+class _ProductCardState extends State<ProductCard> {
+  bool isInCart = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +36,7 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  "assets/img/apple_red.png",
+                  widget.product["icon"]!,
                   width: 100,
                   height: 80,
                   fit: BoxFit.contain,
@@ -34,7 +45,7 @@ class ProductCard extends StatelessWidget {
             ),
             const Spacer(),
             Text(
-              "Apple",
+              widget.product["name"]!,
               style: TextStyle(
                   color: Appcolor.primaryText,
                   fontSize: 16,
@@ -44,7 +55,7 @@ class ProductCard extends StatelessWidget {
               height: 2,
             ),
             Text(
-              "1 Kg, Prices",
+              "${widget.product["qty"]}${widget.product["unit"]}",
               style: TextStyle(
                   color: Appcolor.secondaryText,
                   fontSize: 14,
@@ -55,26 +66,55 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$4.99",
+                  widget.product["price"]!,
                   style: TextStyle(
                       color: Appcolor.primaryText,
                       fontSize: 18,
                       fontWeight: FontWeight.w600),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () async {
+                    if (isInCart) {
+                      widget.onRemove(
+                          DateTime.now().millisecondsSinceEpoch.toString());
+                      setState(() => isInCart = false);
+                    } else {
+                      final item = CartModels(
+                        id: DateTime.now().millisecondsSinceEpoch.toString(),
+                        title: widget.product["name"]!,
+                        price: widget.product["price"]!,
+                        quantity:
+                            "${widget.product["qty"]}${widget.product["unit"]}",
+                        image: widget.product["icon"]!,
+                      );
+
+                      await CartDb.singleton.addCart(item);
+                      setState(() {
+                        isInCart = true;
+                      });
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Item added to the cart'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
                   child: Container(
-                      width: 34,
-                      height: 34,
-                      decoration: BoxDecoration(
-                        color: Appcolor.primary,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      alignment: Alignment.center,
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      )),
+                    width: 34,
+                    height: 34,
+                    decoration: BoxDecoration(
+                      color: Appcolor.primary,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      isInCart ? Icons.check : Icons.add,
+                      color: Colors.white,
+                      size: 20, // Adjust size as needed
+                    ),
+                  ),
                 ),
               ],
             ),

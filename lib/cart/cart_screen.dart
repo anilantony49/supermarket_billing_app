@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:machine_task_atts/Utils/colors.dart';
 import 'package:machine_task_atts/widgets/image_cart.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +34,7 @@ class CartScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 itemBuilder: (context, index) {
-                  return const ImageCart();
+                  return const ImageCart(title: '', price: '', quantity: '', image: '',);
                 },
                 separatorBuilder: (context, index) => const Divider(
                       color: Colors.black26,

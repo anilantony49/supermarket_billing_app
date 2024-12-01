@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:machine_task_atts/Utils/colors.dart';
 
 class ImageCart extends StatelessWidget {
-  const ImageCart({super.key});
+  final String title;
+  final String price;
+  final String quantity;
+    final String image;
+
+  const ImageCart({super.key, required this.title, required this.price, required this.quantity, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +82,13 @@ class ImageCart extends StatelessWidget {
                 const SizedBox(
                   height: 2,
                 ),
-                Text(
-                  "dd",
-                  style: TextStyle(
-                      color: Appcolor.secondaryText,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500),
-                ),
+                // Text(
+                //   "dd",
+                //   style: TextStyle(
+                //       color: Appcolor.secondaryText,
+                //       fontSize: 14,
+                //       fontWeight: FontWeight.w500),
+                // ),
                 const SizedBox(
                   width: 10,
                 ),
@@ -113,7 +118,7 @@ class ImageCart extends StatelessWidget {
                       width: 15,
                     ),
                     Text(
-                      "aa",
+                      "Quantity ",
                       style: TextStyle(
                           color: Appcolor.primaryText,
                           fontSize: 16,
@@ -144,7 +149,7 @@ class ImageCart extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      "aa",
+                      "Price",
                       style: TextStyle(
                           color: Appcolor.primaryText,
                           fontSize: 18,

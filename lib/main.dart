@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:machine_task_atts/main_screen.dart';
+import 'package:machine_task_atts/models/cart_models.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+   await Hive.initFlutter();
+   Hive.registerAdapter(CartModelsAdapter());
   runApp(const MainApp());
 }
 
@@ -11,9 +16,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: false,
         title: 'Flutter app',
-      home: MainScreen()
-    );
+        home: MainScreen());
   }
 }

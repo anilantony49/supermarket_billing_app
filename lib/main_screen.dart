@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:machine_task_atts/bottom_navigation.dart';
-import 'package:machine_task_atts/cart_screen.dart';
-import 'package:machine_task_atts/home_screen.dart';
+import 'package:machine_task_atts/cart/cart_screen.dart';
+import 'package:machine_task_atts/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

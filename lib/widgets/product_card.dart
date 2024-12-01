@@ -8,7 +8,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       child: Container(
-        height: 230,
+        // height: 280,
         width: 180,
         margin: const EdgeInsets.symmetric(horizontal: 8),
         padding: const EdgeInsets.all(15),
@@ -64,19 +64,17 @@ class ProductCard extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Appcolor.primary,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "assets/img/add.png",
-                      width: 15,
-                      height: 15,
-                    ),
-                  ),
+                      width: 34,
+                      height: 34,
+                      decoration: BoxDecoration(
+                        color: Appcolor.primary,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      alignment: Alignment.center,
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      )),
                 ),
               ],
             ),

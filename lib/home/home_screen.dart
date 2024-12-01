@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:machine_task_atts/widgets/product_card.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'Utils/colors.dart';
-import 'widgets/section_view.dart';
+import '../Utils/colors.dart';
+import '../widgets/section_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -119,13 +119,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
                   width: double.maxFinite,
-                  height: 115,
+                  height: 135,
                   decoration: BoxDecoration(
                       color: const Color(0xffF2F3F2),
                       borderRadius: BorderRadius.circular(15)),
                   alignment: Alignment.center,
                   child: ClipRRect(
-                     borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(15),
                     child: PageView(
                       controller: _pageController,
                       children: [
@@ -171,14 +171,21 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 15,
               ),
-              SizedBox(
-                height: 230,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return const ProductCard();
-                    }),
+              GridView.builder(
+                shrinkWrap: true, // Let GridView size itself to content
+                physics: const NeverScrollableScrollPhysics(),
+                // scrollDirection: Axis.vertical, // Allows vertical scrolling
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Two items per row
+                  mainAxisSpacing: 10, // Vertical spacing between rows
+                  crossAxisSpacing: 10, // Horizontal spacing between columns
+                  // childAspectRatio:
+                  //     1.1, // Adjusts the width-to-height ratio of grid items
+                ),
+                itemCount: 4, // Total number of items
+                itemBuilder: (context, index) {
+                  return const ProductCard(); // Grid item widget
+                },
               ),
               SectionView(
                 title: "Groceries",
@@ -189,15 +196,23 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 15,
               ),
-              SizedBox(
-                height: 230,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return const ProductCard();
-                    }),
+              GridView.builder(
+                shrinkWrap: true, // Let GridView size itself to content
+                 physics: const NeverScrollableScrollPhysics(),
+                // scrollDirection: Axis.vertical, // Allows vertical scrolling
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Two items per row
+                  mainAxisSpacing: 10, // Vertical spacing between rows
+                  crossAxisSpacing: 10, // Horizontal spacing between columns
+                  // childAspectRatio:
+                  //     1.1, // Adjusts the width-to-height ratio of grid items
+                ),
+                itemCount: 4, // Total number of items
+                itemBuilder: (context, index) {
+                  return const ProductCard(); // Grid item widget
+                },
               ),
+
               // ProductCard()
             ],
           ),

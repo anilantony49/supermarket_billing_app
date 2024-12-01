@@ -24,28 +24,28 @@ class _HomeScreenState extends State<HomeScreen> {
       "name": "Apple",
       "icon": "assets/img/apple_red.png",
       "qty": "1",
-      "unit": "kg, Prices",
+      "unit": "kg",
       "price": "\$4.99"
     },
     {
       "name": "Rice",
       "icon": "assets/img/rice.png",
       "qty": "1",
-      "unit": "kg, Prices",
+      "unit": "kg",
       "price": "\$4.99"
     },
     {
       "name": "Rice2",
       "icon": "assets/img/rice.png",
       "qty": "1",
-      "unit": "kg, Prices",
+      "unit": "kg",
       "price": "\$4.99"
     },
     {
       "name": "Rice3",
       "icon": "assets/img/rice.png",
       "qty": "1",
-      "unit": "kg, Prices",
+      "unit": "kg",
       "price": "\$4.99"
     }
   ];
@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Removed from cart'),
+        content: Text('Item Removed from cart'),
         duration: Duration(seconds: 2),
       ),
     );

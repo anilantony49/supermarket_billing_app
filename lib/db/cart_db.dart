@@ -12,9 +12,11 @@ abstract class CartDbFunctions {
 }
 
 class CartDb implements CartDbFunctions {
-  ValueNotifier<List<CartModels>> driverNotifier = ValueNotifier([]);
+  ValueNotifier<List<CartModels>> cartNotifier = ValueNotifier([]);
 
-  CartDb._internal();
+  CartDb._internal() {
+    refresh(); // Ensure cart data is loaded on app startup
+  }
   static final CartDb singleton = CartDb._internal();
 
   factory CartDb() {
@@ -23,7 +25,7 @@ class CartDb implements CartDbFunctions {
 
   Future<void> refresh() async {
     final allCart = await getCart();
-    driverNotifier.value = List.from(allCart);
+    cartNotifier.value = List.from(allCart);
   }
 
   @override
@@ -51,5 +53,6 @@ class CartDb implements CartDbFunctions {
   Future<void> removeCart(String cartId) async {
     final db = await Hive.openBox<CartModels>(_dbName);
     await db.delete(cartId);
+     refresh();
   }
 }

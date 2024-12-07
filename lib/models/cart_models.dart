@@ -8,12 +8,14 @@ class CartModels {
   @HiveField(1)
   final String title;
   @HiveField(2)
-  late final String price;
+  final String price;
   @HiveField(3)
-  late final String quantity;
+  final String quantity;
   @HiveField(4)
   final String image;
   @HiveField(5)
+  final String unit;
+  @HiveField(6)
   final String? discount;
 
   CartModels(
@@ -21,6 +23,7 @@ class CartModels {
       required this.title,
       required this.price,
       required this.quantity,
+      required this.unit,
       required this.image,
-       this.discount});
+      this.discount});
 }

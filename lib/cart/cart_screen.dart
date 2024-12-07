@@ -72,11 +72,12 @@ class _CartScreenState extends State<CartScreen> {
                     // Get item data
                     final item = newItem[index];
                     return ImageCart(
-                      initialQuantity: 1,
+                      initialQuantity: int.parse(item.quantity),
                       title: item.title,
-                      basePrice: 20.0,
+                      basePrice: double.parse(item.price),
                       image: item.image,
                       onRemove: () => removeItmesAndShowSnackbar(item.id),
+                      unit: item.unit,
                     );
                   },
                   separatorBuilder: (context, index) => const Divider(

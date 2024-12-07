@@ -30,28 +30,28 @@ class _HomeScreenState extends State<HomeScreen> {
       "icon": "assets/img/apple_red.png",
       "qty": "1",
       "unit": "kg",
-      "price": "\$4.99"
+      "price": "4.99"
     },
     {
       "name": "Rice",
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
-      "price": "\$4.99"
+      "price": "4.99"
     },
     {
       "name": "Rice2",
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
-      "price": "\$4.99"
+      "price": "4.99"
     },
     {
       "name": "Rice3",
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
-      "price": "\$4.99"
+      "price": "4.99"
     }
   ];
 

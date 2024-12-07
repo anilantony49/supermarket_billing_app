@@ -5,6 +5,7 @@ class ImageCart extends StatefulWidget {
   final String title;
   final double basePrice;
   final int initialQuantity;
+  final String unit;
   final String image;
   final VoidCallback onRemove;
 
@@ -13,6 +14,7 @@ class ImageCart extends StatefulWidget {
     required this.title,
     required this.basePrice,
     required this.initialQuantity,
+    required this.unit,
     required this.image,
     required this.onRemove,
   });
@@ -124,43 +126,54 @@ class _ImageCartState extends State<ImageCart> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         alignment: Alignment.center,
-                        child: Image.asset(
-                          "assets/img/subtack.png",
-                          width: 15,
-                          height: 15,
+                        child: const Icon(
+                          Icons.remove,
+                          size: 20,
+                          color: Colors.green,
                         ),
                       ),
                     ),
                     const SizedBox(width: 15),
-                    Text(
-                      "$quantity",
-                      style: TextStyle(
-                        color: Appcolor.primaryText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          "$quantity",
+                          style: TextStyle(
+                            color: Appcolor.primaryText,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          widget.unit,
+                          style: TextStyle(
+                            color: Appcolor.primaryText,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(width: 15),
                     InkWell(
                       onTap: incrementQuantity,
                       child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Appcolor.placeholder.withOpacity(0.5),
-                            width: 1,
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Appcolor.placeholder.withOpacity(0.5),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        alignment: Alignment.center,
-                        child: Image.asset(
-                          "assets/img/add_green.png",
-                          width: 16,
-                          height: 16,
-                        ),
-                      ),
+                          alignment: Alignment.center,
+                          child: const Icon(
+                            Icons.add,
+                            size: 20,
+                            color: Colors.green,
+                          )),
                     ),
                     const Spacer(),
                     Text(

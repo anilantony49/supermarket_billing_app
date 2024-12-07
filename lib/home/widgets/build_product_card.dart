@@ -80,7 +80,7 @@ class _BuildProductCardState extends State<BuildProductCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      product["price"]!,
+                      "\$${product["price"]}",
                       style: TextStyle(
                           color: Appcolor.primaryText,
                           fontSize: 18,
@@ -113,10 +113,11 @@ class _BuildProductCardState extends State<BuildProductCard> {
                                 id: DateTime.now()
                                     .millisecondsSinceEpoch
                                     .toString(),
-                                title: product["name"]!,
-                                price: product["price"]!,
-                                quantity: "${product["qty"]}${product["unit"]}",
-                                image: product["icon"]!,
+                                title: product["name"],
+                                price: product["price"],
+                                quantity: product["qty"],
+                                image: product["icon"],
+                                unit: product["unit"],
                               );
 
                               await CartDb.singleton.addCart(newItem);

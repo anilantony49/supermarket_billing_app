@@ -13,6 +13,8 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   List<CartModels> items = [];
+  final double tax = 2.96;
+  final double roundOff = 0.04;
 
   @override
   void initState() {
@@ -44,18 +46,35 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Calculate subtotal by folding over the total price for each item
+    final double subtotal = items.fold(0.0, (sum, item) {
+      double price = double.tryParse(item.price) ?? 0;
+      int quantity = int.tryParse(item.quantity) ?? 0;
+      double discount = double.tryParse(item.discount) ?? 0.0;
+      double totalPrice = (price * quantity) - discount;
+      return sum + totalPrice;
+    });
+
+    // Calculate grand total
+    final double grandTotal = subtotal + tax + roundOff;
+
     return Container(
+      // height: 600,
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
-            'Checkout',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          const Center(
+            child: Text(
+              'Checkout',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
           const SizedBox(height: 15),
           // Table Header
@@ -108,6 +127,69 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             }).toList(),
           ),
           const SizedBox(height: 15),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Sub Total",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                '\$${subtotal.toStringAsFixed(2)}',
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Tax',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "\$${tax.toString()}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Round Off',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "\$${roundOff.toString()}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Total',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "\$${grandTotal.toStringAsFixed(2)}",
+                style:
+                    const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 25),
           RoundButton(
             title: "Place Order",
             onPressed: () {

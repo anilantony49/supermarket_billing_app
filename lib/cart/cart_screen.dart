@@ -2,48 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:machine_task_atts/Utils/colors.dart';
 import 'package:machine_task_atts/cart/widgets/show_check_out.dart';
 import 'package:machine_task_atts/db/cart_db.dart';
-import 'package:machine_task_atts/home/home_screen.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
 import 'package:machine_task_atts/widgets/image_cart.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  // List<CartModels> items = [];
-
-  @override
-  void initState() {
-    // fetchItems();
-    super.initState();
-  }
-
-  void fetchItems() async {
-    final fetchedItems = await CartDb.singleton.getCart();
-    setState(() {
-      items = fetchedItems;
-    });
-  }
-
-  void removeItmesAndShowSnackbar(String itemId) {
-    CartDb.singleton.removeCart(itemId);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Item Removed from cart'),
-        duration: Duration(seconds: 2),
-      ),
-    );
-
-    fetchItems();
-  }
+  // void fetchItems() async {
 
   @override
   Widget build(BuildContext context) {
+    void removeItmesAndShowSnackbar(String itemId) {
+      CartDb.singleton.removeCart(itemId);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Item Removed from cart'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

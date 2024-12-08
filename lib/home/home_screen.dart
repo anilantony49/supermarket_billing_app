@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
+      "price": "4.99",
       "discount": "5"
     },
     {

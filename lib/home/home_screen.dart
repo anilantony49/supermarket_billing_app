@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/db/cart_db.dart';
 import 'package:machine_task_atts/home/widgets/build_banner.dart';
 import 'package:machine_task_atts/home/widgets/build_product_card.dart';
 import 'package:machine_task_atts/home/widgets/build_search_bar.dart';
@@ -30,28 +29,31 @@ class _HomeScreenState extends State<HomeScreen> {
       "icon": "assets/img/apple_red.png",
       "qty": "1",
       "unit": "kg",
-      "price": "4.99"
+      "price": "4.99",
+      "discount": "2"
     },
     {
       "name": "Rice",
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
-      "price": "4.99"
+      "price": "4.99",
+      "discount": "3"
     },
     {
       "name": "Rice2",
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
-      "price": "4.99"
+      "discount": "5"
     },
     {
       "name": "Rice3",
       "icon": "assets/img/rice.png",
       "qty": "1",
       "unit": "kg",
-      "price": "4.99"
+      "price": "4.99",
+      "discount": "7"
     }
   ];
 

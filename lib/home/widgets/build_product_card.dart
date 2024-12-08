@@ -43,11 +43,30 @@ class _BuildProductCardState extends State<BuildProductCard> {
                   color: Appcolor.placeholder.withOpacity(0.5), width: 1),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Positioned(
+                  top: 8,
+                  right: 4,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                    "${product["discount"]}%",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
                       product["icon"]!,
@@ -55,96 +74,104 @@ class _BuildProductCardState extends State<BuildProductCard> {
                       height: 80,
                       fit: BoxFit.contain,
                     ),
-                  ],
-                ),
-                const Spacer(),
-                Text(
-                  product["name"]!,
-                  style: TextStyle(
-                      color: Appcolor.primaryText,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(
-                  height: 2,
-                ),
-                Text(
-                  "${product["qty"]}${product["unit"]}",
-                  style: TextStyle(
-                      color: Appcolor.secondaryText,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
+                    const Spacer(),
                     Text(
-                      "\$${product["price"]}",
+                      product["name"]!,
                       style: TextStyle(
                           color: Appcolor.primaryText,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700),
                     ),
-                    ValueListenableBuilder(
-                      valueListenable: CartDb.singleton.cartNotifier,
-                      builder: (BuildContext context,
-                          List<CartModels> cartItems, Widget? _) {
-                        bool isItemInCart = cartItems.any(
-                            (cartItem) => cartItem.title == product["name"]);
-                        return InkWell(
-                          onTap: () async {
-                            // Check if the item is already in the cart
-                            if (isItemInCart) {
-                              // Remove item from cart
-                              final cartItem = cartItems.firstWhere(
-                                  (cartItem) =>
-                                      cartItem.title == product["name"]);
-                              await CartDb.singleton.removeCart(cartItem.id);
+                    const SizedBox(
+                      height: 2,
+                    ),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${product["qty"]}${product["unit"]}",
+                          style: TextStyle(
+                              color: Appcolor.secondaryText,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "\$${product["price"]}",
+                          style: TextStyle(
+                              color: Appcolor.primaryText,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        ValueListenableBuilder(
+                          valueListenable: CartDb.singleton.cartNotifier,
+                          builder: (BuildContext context,
+                              List<CartModels> cartItems, Widget? _) {
+                            bool isItemInCart = cartItems.any((cartItem) =>
+                                cartItem.title == product["name"]);
+                            return InkWell(
+                              onTap: () async {
+                                // Check if the item is already in the cart
+                                if (isItemInCart) {
+                                  // Remove item from cart
+                                  final cartItem = cartItems.firstWhere(
+                                      (cartItem) =>
+                                          cartItem.title == product["name"]);
+                                  await CartDb.singleton
+                                      .removeCart(cartItem.id);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Item removed from the cart'),
-                                    duration: Duration(seconds: 2)),
-                              );
-                            } else {
-                              // Add item to cart
-                              final newItem = CartModels(
-                                id: DateTime.now()
-                                    .millisecondsSinceEpoch
-                                    .toString(),
-                                title: product["name"],
-                                price: product["price"],
-                                quantity: product["qty"],
-                                image: product["icon"],
-                                unit: product["unit"],
-                              );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Item removed from the cart'),
+                                        duration: Duration(seconds: 2)),
+                                  );
+                                } else {
+                                  // Add item to cart
+                                  final newItem = CartModels(
+                                    id: DateTime.now()
+                                        .millisecondsSinceEpoch
+                                        .toString(),
+                                    title: product["name"],
+                                    price: product["price"],
+                                    quantity: product["qty"],
+                                    image: product["icon"],
+                                    unit: product["unit"],
+                                    discount: product["discount"]
+                                  );
 
-                              await CartDb.singleton.addCart(newItem);
+                                  await CartDb.singleton.addCart(newItem);
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Item added to the cart'),
-                                    duration: Duration(seconds: 2)),
-                              );
-                            }
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text('Item added to the cart'),
+                                        duration: Duration(seconds: 2)),
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 34,
+                                height: 34,
+                                decoration: BoxDecoration(
+                                  color: Appcolor.primary,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  isItemInCart ? Icons.check : Icons.add,
+                                  color: Colors.white,
+                                  size: 20, // Adjust size as needed
+                                ),
+                              ),
+                            );
                           },
-                          child: Container(
-                            width: 34,
-                            height: 34,
-                            decoration: BoxDecoration(
-                              color: Appcolor.primary,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              isItemInCart ? Icons.check : Icons.add,
-                              color: Colors.white,
-                              size: 20, // Adjust size as needed
-                            ),
-                          ),
-                        );
-                      },
+                        ),
+                      ],
                     ),
                   ],
                 ),

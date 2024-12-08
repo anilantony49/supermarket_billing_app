@@ -18,7 +18,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   void initState() {
-    fetchItems();
+    // fetchItems();
     super.initState();
   }
 
@@ -61,6 +61,11 @@ class _CartScreenState extends State<CartScreen> {
       body: ValueListenableBuilder(
         valueListenable: CartDb().cartNotifier,
         builder: (BuildContext context, List<CartModels> newItem, Widget? _) {
+          // calculate total amount
+          final double totalAmount = newItem.fold(
+              0.0,
+              (sum, item) =>
+                  sum + (double.parse(item.price) * int.parse(item.quantity)));
           return Stack(
             alignment: Alignment.bottomCenter,
             children: [
@@ -78,6 +83,8 @@ class _CartScreenState extends State<CartScreen> {
                       image: item.image,
                       onRemove: () => removeItmesAndShowSnackbar(item.id),
                       unit: item.unit,
+                      id: item.id,
+                      discount: item.discount,
                     );
                   },
                   separatorBuilder: (context, index) => const Divider(
@@ -124,9 +131,9 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             padding: const EdgeInsets.symmetric(
                                 vertical: 4, horizontal: 8),
-                            child: const Text(
-                              "\$10.96",
-                              style: TextStyle(
+                            child: Text(
+                              "\$${totalAmount.toStringAsFixed(2)}",
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w600),
@@ -144,14 +151,4 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-
-  // void showCheckout() {
-  //   showModalBottomSheet(
-  //       backgroundColor: Colors.transparent,
-  //       isDismissible: false,
-  //       context: context,
-  //       builder: (context) {
-  //         return const CheckoutScreen();
-  //       });
-  // }
 }

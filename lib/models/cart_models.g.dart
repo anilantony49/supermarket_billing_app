@@ -23,7 +23,7 @@ class CartModelsAdapter extends TypeAdapter<CartModels> {
       quantity: fields[3] as String,
       unit: fields[5] as String,
       image: fields[4] as String,
-      discount: fields[6] as String?,
+      discount: fields[6] as String,
     );
   }
 

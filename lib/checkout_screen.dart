@@ -67,10 +67,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 children: [
                   _buildTableCell('No'),
                   _buildTableCell('Name'),
-                  _buildTableCell('Price'),
+                  _buildTableCell('Price (\$)'),
                   _buildTableCell('Qty'),
-                  _buildTableCell('Disc'),
-                  _buildTableCell('Amount'),
+                  _buildTableCell('Disc (%)'),
+                  _buildTableCell('Amount (\$)'),
                 ],
               ),
             ],
@@ -84,19 +84,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               // Parse price, quantity, and discount to numeric types
               double price = double.tryParse(item.price) ?? 0.0;
               int quantity = int.tryParse(item.quantity) ?? 0;
-              double discount = double.tryParse(item.discount ?? '0') ?? 0.0;
+              String? discount = item.discount;
 
               // Calculate total price
-              double totalPrice = (price * quantity) - discount;
+              double totalPrice = (price * quantity) - double.parse(discount);
 
               return TableRow(
                 children: [
-                  _buildTableCell('${index + 1}', fontSize: 14, fontWeight: FontWeight.w400),
-                  _buildTableCell(item.title, fontSize: 14, fontWeight: FontWeight.w400),
-                  _buildTableCell(item.price, fontSize: 14, fontWeight: FontWeight.w400),
-                  _buildTableCell(item.quantity, fontSize: 14, fontWeight: FontWeight.w400),
-                  _buildTableCell(item.discount.toString(), fontSize: 14, fontWeight: FontWeight.w400),
-                  _buildTableCell('$totalPrice', fontSize: 14, fontWeight: FontWeight.w400),
+                  _buildTableCell('${index + 1}',
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                  _buildTableCell(item.title,
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                  _buildTableCell(item.price,
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                  _buildTableCell(item.quantity,
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                  _buildTableCell(item.discount.toString(),
+                      fontSize: 14, fontWeight: FontWeight.w400),
+                  _buildTableCell(totalPrice.toStringAsFixed(2),
+                      fontSize: 14, fontWeight: FontWeight.w400),
                 ],
               );
             }).toList(),

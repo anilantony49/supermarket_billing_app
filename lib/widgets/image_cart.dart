@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:machine_task_atts/Utils/colors.dart';
+import 'package:machine_task_atts/db/cart_db.dart';
+import 'package:machine_task_atts/models/cart_models.dart';
 
 class ImageCart extends StatefulWidget {
+  final String id;
   final String title;
   final double basePrice;
   final int initialQuantity;
+  final String discount;
   final String unit;
   final String image;
   final VoidCallback onRemove;
 
   const ImageCart({
     super.key,
+    required this.id,
     required this.title,
     required this.basePrice,
     required this.initialQuantity,
+    required this.discount,
     required this.unit,
     required this.image,
     required this.onRemove,
@@ -35,20 +41,40 @@ class _ImageCartState extends State<ImageCart> {
     totalPrice = widget.basePrice * quantity; // Calculate initial total price
   }
 
-  void incrementQuantity() {
+  void incrementQuantity() async {
     setState(() {
       quantity++;
       totalPrice = widget.basePrice * quantity; // Update total price
     });
+    final updatedItem = CartModels(
+        id: widget.id,
+        title: widget.title,
+        price: widget.basePrice.toStringAsFixed(2),
+        quantity: quantity.toString(),
+        unit: widget.unit,
+        image: widget.image,
+        discount: widget.discount);
+
+    await CartDb.singleton.editCart(updatedItem, widget.id);
   }
 
-  void decrementQuantity() {
+  void decrementQuantity() async {
     setState(() {
       if (quantity > 1) {
         quantity--;
         totalPrice = widget.basePrice * quantity; // Update total price
       }
     });
+    final updatedItem = CartModels(
+        id: widget.id,
+        title: widget.title,
+        price: widget.basePrice.toStringAsFixed(2),
+        quantity: quantity.toString(),
+        unit: widget.unit,
+        image: widget.image,
+        discount: widget.discount);
+
+    await CartDb.singleton.editCart(updatedItem, widget.id);
   }
 
   @override

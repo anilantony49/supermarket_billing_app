@@ -1,14 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/home/widgets/build_banner.dart';
-import 'package:machine_task_atts/home/widgets/build_product_card.dart';
-import 'package:machine_task_atts/home/widgets/build_search_bar.dart';
-import 'package:machine_task_atts/home/widgets/build_title.dart';
+import 'package:machine_task_atts/view/home/widgets/build_banner.dart';
+import 'package:machine_task_atts/view/home/widgets/build_product_card.dart';
+import 'package:machine_task_atts/view/home/widgets/build_search_bar.dart';
+import 'package:machine_task_atts/view/home/widgets/build_title.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
-import 'package:machine_task_atts/home/widgets/build_header.dart';
+import 'package:machine_task_atts/view/home/widgets/build_header.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../Utils/colors.dart';
+import '../../Utils/colors.dart';
 
 List<CartModels> items = [];
 
@@ -74,13 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
-
-  // void fetchItems() async {
-  //   List<CartModels> fetchedItems = await CartDb.singleton.getCart();
-  //   setState(() {
-  //     items = fetchedItems;
-  //   });
-  // }
 
   @override
   void dispose() {

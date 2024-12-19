@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/cart_actions.dart';
-import 'package:machine_task_atts/Utils/custom_appbar.dart';
-import 'package:machine_task_atts/view/cart/widgets/build_check_out.dart';
+import 'package:machine_task_atts/utils/cart_actions.dart';
+import 'package:machine_task_atts/utils/custom_appbar.dart';
+import 'package:machine_task_atts/utils/text.dart';
+import 'package:machine_task_atts/view/cart/cart_screen/widgets/build_check_out.dart';
 import 'package:machine_task_atts/db/cart_db.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
 import 'package:machine_task_atts/widgets/image_cart.dart';
@@ -12,7 +13,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: 'My Cart'),
+      appBar: CustomAppBar(title: AppText.myCart),
       body: ValueListenableBuilder(
         valueListenable: CartDb().cartNotifier,
         builder: (BuildContext context, List<CartModels> newItem, Widget? _) {
@@ -38,10 +39,12 @@ class CartScreen extends StatelessWidget {
                       image: item.image,
                       onRemove: () => CartActions.removeItemsAndShowSnackbar(
                           context, item.id),
+                          
                       unit: item.unit,
                       id: item.id,
                       discount: item.discount,
                     );
+                    
                   },
                   separatorBuilder: (context, index) => const Divider(
                     color: Colors.black26,

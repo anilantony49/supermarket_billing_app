@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/colors.dart';
-import 'package:machine_task_atts/view/cart/widgets/show_check_out.dart';
+import 'package:machine_task_atts/utils/colors.dart';
+import 'package:machine_task_atts/utils/text.dart';
+import 'package:machine_task_atts/view/cart/cart_screen/widgets/show_check_out.dart';
 
 Widget buildCheckOut(BuildContext context, double totalAmount) {
   return Padding(
@@ -21,12 +22,12 @@ Widget buildCheckOut(BuildContext context, double totalAmount) {
           child: Stack(
             alignment: Alignment.centerRight,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Go to Checkout",
-                    style: TextStyle(
+                    AppText.checkoutText,
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontWeight: FontWeight.w600),

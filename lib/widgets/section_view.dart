@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/colors.dart';
+import 'package:machine_task_atts/utils/colors.dart';
+import 'package:machine_task_atts/utils/text.dart';
 
 class SectionView extends StatelessWidget {
   final String title;
@@ -31,7 +32,7 @@ class SectionView extends StatelessWidget {
           TextButton(
             onPressed: onPressed,
             child: Text(
-              "See All",
+              AppText.seeAll,
               style: TextStyle(
                   color: Appcolor.primary,
                   fontSize: 16,

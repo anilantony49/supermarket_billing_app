@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/colors.dart';
+import 'package:machine_task_atts/utils/colors.dart';
 import 'package:machine_task_atts/db/cart_db.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
 
@@ -91,6 +91,7 @@ class _ImageCartState extends State<ImageCart> {
               borderRadius: BorderRadius.circular(15),
               boxShadow: [
                 BoxShadow(
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.6),
                   offset: const Offset(0.0, 10.0),
                   blurRadius: 10.0,
@@ -99,6 +100,7 @@ class _ImageCartState extends State<ImageCart> {
               ],
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
+                  // ignore: deprecated_member_use
                   Colors.black.withOpacity(0.35),
                   BlendMode.multiply,
                 ),

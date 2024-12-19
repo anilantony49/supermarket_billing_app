@@ -1,14 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:machine_task_atts/utils/text.dart';
 import 'package:machine_task_atts/view/home/widgets/build_banner.dart';
 import 'package:machine_task_atts/view/home/widgets/build_product_card.dart';
 import 'package:machine_task_atts/view/home/widgets/build_search_bar.dart';
 import 'package:machine_task_atts/view/home/widgets/build_title.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
 import 'package:machine_task_atts/view/home/widgets/build_header.dart';
+import 'package:machine_task_atts/widgets/product_list.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../Utils/colors.dart';
+import '../../utils/colors.dart';
 
 List<CartModels> items = [];
 
@@ -23,44 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController pageController = PageController();
   int _currentPage = 0;
 
-  List listArr = [
-    {
-      "name": "Apple",
-      "icon": "assets/img/apple_red.png",
-      "qty": "1",
-      "unit": "kg",
-      "price": "4.99",
-      "discount": "2"
-    },
-    {
-      "name": "Rice",
-      "icon": "assets/img/rice.png",
-      "qty": "1",
-      "unit": "kg",
-      "price": "4.99",
-      "discount": "3"
-    },
-    {
-      "name": "Rice2",
-      "icon": "assets/img/rice.png",
-      "qty": "1",
-      "unit": "kg",
-      "price": "4.99",
-      "discount": "5"
-    },
-    {
-      "name": "Rice3",
-      "icon": "assets/img/rice.png",
-      "qty": "1",
-      "unit": "kg",
-      "price": "4.99",
-      "discount": "7"
-    }
-  ];
-
   @override
   void initState() {
-    // fetchItems();
     super.initState();
     // Automatically change pages every 3 seconds
     Timer.periodic(const Duration(seconds: 3), (timer) {
@@ -112,19 +78,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   expansionFactor: 2,
                 ),
               ),
-              buildTitle(),
+              buildTitle(title: AppText.fruitTitle),
               BuildProductCard(
-                listArr: listArr,
+                products: fruits,
               ),
               const SizedBox(
                 height: 15,
               ),
-              buildTitle(),
+              buildTitle(title: AppText.groceriesTitle),
               const SizedBox(
                 height: 15,
               ),
               BuildProductCard(
-                listArr: listArr,
+                products: groceries,
               ),
             ],
           ),

@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/colors.dart';
+import 'package:machine_task_atts/utils/colors.dart';
+import 'package:machine_task_atts/utils/text.dart';
 import 'package:machine_task_atts/db/cart_db.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
 
-class BuildProductCard extends StatefulWidget {
-  final List listArr;
-  // final List<CartModels> items;
-  // final Function fetchItems;
+class BuildProductCard extends StatelessWidget {
+  final List products;
   const BuildProductCard({
     super.key,
-    required this.listArr,
-    // required this.items,
-    // required this.fetchItems
+    required this.products,
   });
 
-  @override
-  State<BuildProductCard> createState() => _BuildProductCardState();
-}
-
-class _BuildProductCardState extends State<BuildProductCard> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -31,7 +23,7 @@ class _BuildProductCardState extends State<BuildProductCard> {
       ),
       itemCount: 4,
       itemBuilder: (context, index) {
-        var product = widget.listArr[index];
+        var product = products[index];
         return InkWell(
           child: Container(
             width: 180,
@@ -40,7 +32,9 @@ class _BuildProductCardState extends State<BuildProductCard> {
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border.all(
-                  color: Appcolor.placeholder.withOpacity(0.5), width: 1),
+                  // ignore: deprecated_member_use
+                  color: Appcolor.placeholder.withOpacity(0.5),
+                  width: 1),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Stack(
@@ -56,7 +50,7 @@ class _BuildProductCardState extends State<BuildProductCard> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                    "${product["discount"]}%",
+                      "${product["discount"]}%",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -86,7 +80,6 @@ class _BuildProductCardState extends State<BuildProductCard> {
                       height: 2,
                     ),
                     Row(
-                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "${product["qty"]}${product["unit"]}",
@@ -125,32 +118,33 @@ class _BuildProductCardState extends State<BuildProductCard> {
                                   await CartDb.singleton
                                       .removeCart(cartItem.id);
 
+                                  // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
+                                    SnackBar(
                                         content:
-                                            Text('Item removed from the cart'),
-                                        duration: Duration(seconds: 2)),
+                                            Text(AppText.itemRemovedText),
+                                        duration: const Duration(seconds: 2)),
                                   );
                                 } else {
                                   // Add item to cart
                                   final newItem = CartModels(
-                                    id: DateTime.now()
-                                        .millisecondsSinceEpoch
-                                        .toString(),
-                                    title: product["name"],
-                                    price: product["price"],
-                                    quantity: product["qty"],
-                                    image: product["icon"],
-                                    unit: product["unit"],
-                                    discount: product["discount"]
-                                  );
+                                      id: DateTime.now()
+                                          .millisecondsSinceEpoch
+                                          .toString(),
+                                      title: product["name"],
+                                      price: product["price"],
+                                      quantity: product["qty"],
+                                      image: product["icon"],
+                                      unit: product["unit"],
+                                      discount: product["discount"]);
 
                                   await CartDb.singleton.addCart(newItem);
 
+                                  // ignore: use_build_context_synchronously
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                        content: Text('Item added to the cart'),
-                                        duration: Duration(seconds: 2)),
+                                    SnackBar(
+                                        content: Text(AppText.itemAddedText),
+                                        duration: const Duration(seconds: 2)),
                                   );
                                 }
                               },

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/colors.dart';
-
-
-
+import 'package:machine_task_atts/utils/colors.dart';
 
 class RoundButton extends StatelessWidget {
   final String title;
@@ -50,11 +47,15 @@ class RoundIconButton extends StatelessWidget {
       color: bgColor,
       child: Row(
         children: [
-          
-          Image.asset(icon, width: 20, height: 20 ,  fit: BoxFit.contain, ),
-
-          const SizedBox(width: 30,),
-          
+          Image.asset(
+            icon,
+            width: 20,
+            height: 20,
+            fit: BoxFit.contain,
+          ),
+          const SizedBox(
+            width: 30,
+          ),
           Text(
             title,
             style: const TextStyle(

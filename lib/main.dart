@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:machine_task_atts/main_screen.dart';
+import 'package:machine_task_atts/others/main_screen.dart';
 import 'package:machine_task_atts/models/cart_models.dart';
 
 Future<void> main() async {

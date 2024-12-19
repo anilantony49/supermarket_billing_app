@@ -1,8 +1,11 @@
-  import 'package:flutter/material.dart';
-import 'package:machine_task_atts/Utils/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:machine_task_atts/utils/colors.dart';
+import 'package:machine_task_atts/utils/text.dart';
 
 Widget buildHeader() {
-    return Row(
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Image.asset(
@@ -14,20 +17,18 @@ Widget buildHeader() {
           width: 8,
         ),
         Text(
-          "Cochin, Kerala",
+          AppText.address,
           style: TextStyle(
               color: Appcolor.darkGray,
               fontSize: 18,
               fontWeight: FontWeight.w600),
         ),
         const Spacer(),
-        // const SizedBox(
-        //   width:58,
-        // ),
         ClipOval(
           child: Image.asset("assets/img/profile picture.webp",
               width: 55, height: 55, fit: BoxFit.cover),
         ),
       ],
-    );
-  }
+    ),
+  );
+}

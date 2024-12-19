@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:machine_task_atts/bottom_navigation.dart';
-import 'package:machine_task_atts/view/cart/cart_screen.dart';
-import 'package:machine_task_atts/db/cart_db.dart';
+import 'package:machine_task_atts/others/bottom_navigation.dart';
+import 'package:machine_task_atts/view/cart/cart_screen/cart_screen.dart';
 import 'package:machine_task_atts/view/home/home_screen.dart';
-import 'package:machine_task_atts/models/cart_models.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -16,16 +14,9 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> pages = [];
   @override
   void initState() {
-       fetchItems();
     pages = [const HomeScreen(), const CartScreen()];
 
     super.initState();
-  }
-    void fetchItems() async {
-    List<CartModels> fetchedItems = await CartDb.singleton.getCart();
-    setState(() {
-      items = fetchedItems;
-    });
   }
 
   @override
